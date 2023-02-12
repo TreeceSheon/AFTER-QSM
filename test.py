@@ -7,6 +7,7 @@ import torch.nn as nn
 from utils.helper import get_rotation_mat, get_scaling_mat, affine_transformation, forward_field_calc
 import torch.nn.functional as F
 
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-field_path', type=str, default='testing_data/cosmos1.nii.gz')

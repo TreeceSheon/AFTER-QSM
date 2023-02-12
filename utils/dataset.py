@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import numpy as np
 import random
 from helper import generate_dipole, get_rotation_mat
+from pathlib import Path
 
 
 class AbstractTrainingDataset(dataset):
@@ -37,10 +38,16 @@ class AbstractTrainingDataset(dataset):
 
     @staticmethod
     @abstractmethod
-    def path_composition(field):
-        pass
+    def path_composition(path_fields: str) -> Path:
 
-    def _get_item_(self, index):
+        """
+        :param path_fields: the path fields corresponding to the index being called in __getitem__.
+        :return: the path composited from given fields.
+        """
+
+        raise NotImplementedError
+
+    def __getitem__(self, index):
 
         chi_path = self.entries[index]
         chi = torch.from_numpy(nib.load(str(chi_path)).get_fdata()[np.newaxis]).to(self.device, torch.float)
